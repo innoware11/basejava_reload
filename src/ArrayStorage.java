@@ -1,13 +1,8 @@
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
 
-    void clear() {
-    }
+    Resume[] storage = new Resume[10_000];
 
-    void save(Resume r) {
+    void save(Resume resume) {
     }
 
     Resume get(String uuid) {
@@ -15,6 +10,9 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
+    }
+
+    void clear() {
     }
 
     /**
