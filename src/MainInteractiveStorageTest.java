@@ -12,8 +12,8 @@ public class MainInteractiveStorageTest {
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String[] commands = {"1. save <uuid>", "2. get <uuid>", "3. delete <uuid>",
-            "4. clear", "5. getAll", "6. size", "7. exit"};
+        String[] commands = {"1. save <uuid>", "2. get <uuid>", "3. update <uuid>", "4. delete <uuid>",
+            "5. clear", "6. getAll", "7. size", "8. exit"};
 
         while (true) {
             showMenu(commands);
@@ -31,11 +31,15 @@ public class MainInteractiveStorageTest {
 
             switch(params[0]) {
                 case "save":
-                    saveResume(paramUuid);
+                    storage.save(new Resume(paramUuid));
                     printAll();
                     break;
                 case "get":
                     System.out.println("Resume: " + storage.get(paramUuid));
+                    break;
+                case "update":
+                    storage.update(new Resume(paramUuid));
+                    printAll();
                     break;
                 case "delete":
                     storage.delete(paramUuid);
@@ -71,12 +75,6 @@ public class MainInteractiveStorageTest {
 
     private static String[] inputCommand(BufferedReader reader) throws IOException {
         return reader.readLine().trim().split(" ");
-    }
-
-    private static void saveResume(String paramUuid) {
-        Resume resume = new Resume();
-        resume.uuid = paramUuid;
-        storage.save(resume);
     }
 
     private static void printAll() {

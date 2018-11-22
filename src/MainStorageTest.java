@@ -3,24 +3,20 @@ public class MainStorageTest {
     static final ArrayStorage storage = new ArrayStorage();
 
     public static void main(String[] args) {
-        Resume resume1 = new Resume();
-        resume1.uuid = "uuid1";
-
-        Resume resume2 = new Resume();
-        resume2.uuid = "uuid2";
-
-        Resume resume3 = new Resume();
-        resume3.uuid = "uuid3";
+        Resume resume1 = new Resume("uuid1");
+        Resume resume2 = new Resume("uuid2");
+        Resume resume3 = new Resume("uuid3");
 
         storage.save(resume1);
         storage.save(resume2);
         storage.save(resume3);
         printAll();
 
-        System.out.println("Get resume1: " + storage.get(resume1.uuid));
+        System.out.println("Get resume1: " + storage.get(resume1.getUuid()));
         System.out.println("Size: " + storage.size());
 
-        storage.delete(resume1.uuid);
+        storage.delete(resume1.getUuid());
+        storage.update(resume2);
         printAll();
 
         storage.clear();
