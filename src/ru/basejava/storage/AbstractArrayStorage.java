@@ -1,15 +1,22 @@
+package ru.basejava.storage;
+
+import ru.basejava.model.Resume;
+
 import java.util.Arrays;
 
-public class ArrayStorage {
+public abstract class AbstractArrayStorage {
 
     private final int CAPACITY = 10_000;
-    private Resume[] storage = new Resume[CAPACITY];
-    private int size;
+    Resume[] storage = new Resume[CAPACITY];
+    int size;
+
+    abstract void save(int index, Resume resume);
 
     public void save(Resume resume) {
-        if(getIndex(resume.getUuid()) == -1) {
+        int index = getIndex(resume.getUuid());
+        if(index == -1) {
             if(size < CAPACITY) {
-                storage[size] = resume;
+                save(index, resume);
                 size++;
             } else {
                 System.out.println("Storage is full");
@@ -37,25 +44,20 @@ public class ArrayStorage {
         }
     }
 
+    abstract void delete(int index);
+
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if(index > -1) {
             size--;
-            storage[index] = storage[size];
+            delete(index);
             storage[size] = null;
         } else {
             System.out.println("Resume with uuid = " + uuid + " doesn't exist");
         }
     }
 
-    private int getIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if(storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+    abstract int getIndex(String uuid);
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);

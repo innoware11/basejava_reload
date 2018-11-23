@@ -1,9 +1,14 @@
+package ru.basejava;
+
+import ru.basejava.model.Resume;
+import ru.basejava.storage.ArrayStorage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Interactive test for ArrayStorage implementation
+ * Interactive test for ru.basejava.storage.ArrayStorage implementation
  * (just run, no need to understand)
  */
 public class MainInteractiveStorageTest {
@@ -35,7 +40,7 @@ public class MainInteractiveStorageTest {
                     printAll();
                     break;
                 case "get":
-                    System.out.println("Resume: " + storage.get(paramUuid));
+                    System.out.println("ru.basejava.model.Resume: " + storage.get(paramUuid));
                     break;
                 case "update":
                     storage.update(new Resume(paramUuid));
@@ -82,7 +87,7 @@ public class MainInteractiveStorageTest {
         if(storage.size() == 0) {
             System.out.println("The store is empty");
         } else {
-            System.out.println("Resume list:");
+            System.out.println("ru.basejava.model.Resume list:");
             for(Resume resume : storage.getAll()) {
                 System.out.println(resume);
             }

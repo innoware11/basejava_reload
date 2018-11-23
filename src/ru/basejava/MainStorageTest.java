@@ -1,6 +1,11 @@
+package ru.basejava;
+
+import ru.basejava.model.Resume;
+import ru.basejava.storage.SortedArrayStorage;
+
 public class MainStorageTest {
 
-    static final ArrayStorage storage = new ArrayStorage();
+    private static final SortedArrayStorage storage = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume resume1 = new Resume("uuid1");
@@ -19,6 +24,7 @@ public class MainStorageTest {
         storage.update(resume2);
         printAll();
 
+        storage.delete(resume1.getUuid());
         storage.clear();
         printAll();
 
