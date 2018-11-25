@@ -1,5 +1,7 @@
 package ru.basejava.storage;
 
+import ru.basejava.exception.ExistStorageException;
+import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -19,10 +21,10 @@ public abstract class AbstractArrayStorage {
                 save(index, resume);
                 size++;
             } else {
-                System.out.println("Storage is full");
+                throw new ExistStorageException(resume.getUuid());
             }
         } else {
-            System.out.println("Resume with uuid = " + resume.getUuid() + " already exists");
+            throw new ExistStorageException(resume.getUuid());
         }
     }
 
@@ -31,8 +33,7 @@ public abstract class AbstractArrayStorage {
         if(index > -1) {
             return storage[index];
         }
-        System.out.println("Resume with uuid = " + uuid + " doesn't exist");
-        return null;
+        throw new NotExistStorageException(uuid);
     }
 
     public void update(Resume resume) {
@@ -40,7 +41,7 @@ public abstract class AbstractArrayStorage {
         if(index > -1) {
             storage[index] = resume;
         } else {
-            System.out.println("Resume with uuid = " + resume.getUuid() + " doesn't exist");
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
@@ -53,7 +54,7 @@ public abstract class AbstractArrayStorage {
             delete(index);
             storage[size] = null;
         } else {
-            System.out.println("Resume with uuid = " + uuid + " doesn't exist");
+            throw new NotExistStorageException(uuid);
         }
     }
 
