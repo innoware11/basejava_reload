@@ -2,13 +2,14 @@ package ru.basejava.storage;
 
 import ru.basejava.exception.ExistStorageException;
 import ru.basejava.exception.NotExistStorageException;
+import ru.basejava.exception.StorageException;
 import ru.basejava.model.Resume;
 
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage {
 
-    private final int CAPACITY = 10_000;
+    final static int CAPACITY = 10_000;
     Resume[] storage = new Resume[CAPACITY];
     int size;
 
@@ -16,12 +17,12 @@ public abstract class AbstractArrayStorage {
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if(index == -1) {
+        if(index < 0) {
             if(size < CAPACITY) {
                 save(index, resume);
                 size++;
             } else {
-                throw new ExistStorageException(resume.getUuid());
+                throw new StorageException(resume.getUuid());
             }
         } else {
             throw new ExistStorageException(resume.getUuid());
