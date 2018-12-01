@@ -5,17 +5,17 @@ import ru.basejava.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    void save(int index, Resume resume) {
+    public void insert(int index, Resume resume) {
         storage[size] = resume;
     }
 
     @Override
-    void delete(int index) {
+    public void remove(int index) {
         storage[index] = storage[size];
     }
 
     @Override
-    int getIndex(String uuid) {
+    public Integer getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if(storage[i].getUuid().equals(uuid)) {
                 return i;
@@ -23,6 +23,4 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
         return -1;
     }
-
-
 }

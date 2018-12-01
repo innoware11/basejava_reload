@@ -1,65 +1,46 @@
 package ru.basejava.storage;
 
-import ru.basejava.exception.ExistStorageException;
-import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.exception.StorageException;
 import ru.basejava.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
 
     final static int CAPACITY = 10_000;
     Resume[] storage = new Resume[CAPACITY];
     int size;
 
-    abstract void save(int index, Resume resume);
+    abstract void insert(int index, Resume resume);
 
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if(index < 0) {
-            if(size < CAPACITY) {
-                save(index, resume);
-                size++;
-            } else {
-                throw new StorageException(resume.getUuid());
-            }
+    @Override
+    public void save(Object index, Resume resume) {
+        if(size < CAPACITY) {
+            insert((int)index, resume);
+            size++;
         } else {
-            throw new ExistStorageException(resume.getUuid());
+            throw new StorageException(resume.getUuid());
         }
     }
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if(index > -1) {
-            return storage[index];
-        }
-        throw new NotExistStorageException(uuid);
+    @Override
+    public Resume get(Object index) {
+        return storage[(int)index];
     }
 
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if(index > -1) {
-            storage[index] = resume;
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+    @Override
+    public void update(Object index, Resume resume) {
+        storage[(int)index] = resume;
     }
 
-    abstract void delete(int index);
+    abstract void remove(int index);
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if(index > -1) {
-            size--;
-            delete(index);
-            storage[size] = null;
-        } else {
-            throw new NotExistStorageException(uuid);
-        }
+    @Override
+    public void delete(Object index) {
+        size--;
+        remove((int)index);
+        storage[size] = null;
     }
-
-    abstract int getIndex(String uuid);
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -75,5 +56,10 @@ public abstract class AbstractArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    @Override
+    boolean isExist(Object index) {
+        return (int)index > -1;
     }
 }
