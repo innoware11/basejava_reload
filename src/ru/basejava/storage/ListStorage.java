@@ -48,8 +48,8 @@ public class ListStorage extends AbstractStorage {
         storage.clear();
     }
 
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[0]);
+    public List<Resume> getAll() {
+        return new ArrayList<>(storage);
     }
 
     public int size() {

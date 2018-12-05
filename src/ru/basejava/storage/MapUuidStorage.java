@@ -2,7 +2,9 @@ package ru.basejava.storage;
 
 import ru.basejava.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapUuidStorage extends AbstractStorage {
@@ -43,8 +45,8 @@ public class MapUuidStorage extends AbstractStorage {
         storage.clear();
     }
 
-    public Resume[] getAll() {
-        return storage.values().toArray(new Resume[0]);
+    public List<Resume> getAll() {
+        return new ArrayList<>(storage.values());
     }
 
     public int size() {
