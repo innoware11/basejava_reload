@@ -3,7 +3,7 @@ package ru.basejava.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Experience extends AbstractSection {
+public class Organization extends AbstractSection {
 
     private Link homepage;
     private LocalDate startDate;
@@ -11,7 +11,7 @@ public class Experience extends AbstractSection {
     private String title;
     private String description;
 
-    public Experience(Link homepage, LocalDate startDate, LocalDate endDate, String title, String description) {
+    public Organization(Link homepage, LocalDate startDate, LocalDate endDate, String title, String description) {
         Objects.requireNonNull(homepage, "homepage can't be null");
         Objects.requireNonNull(startDate, "startDate can't be null");
         Objects.requireNonNull(title, "title can't be null");
@@ -66,7 +66,7 @@ public class Experience extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Experience that = (Experience) o;
+        Organization that = (Organization) o;
         return Objects.equals(homepage, that.homepage) &&
                 Objects.equals(startDate, that.startDate) &&
                 Objects.equals(endDate, that.endDate) &&

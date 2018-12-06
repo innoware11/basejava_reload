@@ -1,12 +1,11 @@
 package ru.basejava.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class MarkedTextSection extends AbstractSection {
 
-    private List<String> list = new ArrayList<>();
+    private List<String> list;
 
     public MarkedTextSection(List<String> list) {
         Objects.requireNonNull(list, "list can't be null");

@@ -1,24 +1,23 @@
 package ru.basejava.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class OrganizationSection extends AbstractSection {
 
-    private List<Experience> experience = new ArrayList<>();
+    private List<Organization> organization;
 
-    public OrganizationSection(List<Experience> experience) {
-        Objects.requireNonNull(experience, "experience cant't be null");
-        this.experience = experience;
+    public OrganizationSection(List<Organization> organization) {
+        Objects.requireNonNull(organization, "organization cant't be null");
+        this.organization = organization;
     }
 
-    public List<Experience> getExperience() {
-        return experience;
+    public List<Organization> getOrganization() {
+        return organization;
     }
 
-    public void setExperience(List<Experience> experience) {
-        this.experience = experience;
+    public void setOrganization(List<Organization> organization) {
+        this.organization = organization;
     }
 
     @Override
@@ -26,16 +25,16 @@ public class OrganizationSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrganizationSection that = (OrganizationSection) o;
-        return Objects.equals(experience, that.experience);
+        return Objects.equals(organization, that.organization);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(experience);
+        return Objects.hash(organization);
     }
 
     @Override
     public String toString() {
-        return experience.toString();
+        return organization.toString();
     }
 }
