@@ -6,8 +6,9 @@ import ru.basejava.model.Resume;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
-public abstract class AbstractStorage {
+public abstract class AbstractStorage<SK> {
 
     abstract void clear();
 
@@ -15,51 +16,59 @@ public abstract class AbstractStorage {
 
     abstract List<Resume> getAll();
 
-    abstract void save(Object searchKey, Resume resume);
+    abstract void save(SK searchKey, Resume resume);
 
     private static final Comparator<Resume> COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+
+    private static final Logger log = Logger.getLogger(AbstractStorage.class.getName());
     
     public void save(Resume resume) {
-        Object searchKey = receiveNotExistSearchKey(resume.getUuid());
+        log.info("save " + resume);
+        SK searchKey = receiveNotExistSearchKey(resume.getUuid());
         save(searchKey, resume);
     }
 
-    abstract Resume get(Object searchKey);
+    abstract Resume get(SK searchKey);
 
     public Resume get(String uuid) {
-        Object searchKey = receiveExistSearchKey(uuid);
+        log.info("save " + uuid);
+        SK searchKey = receiveExistSearchKey(uuid);
         return get(searchKey);
     }
 
-    abstract void update(Object searchKey, Resume resume);
+    abstract void update(SK searchKey, Resume resume);
 
     public void update(Resume resume) {
-        Object searchKey = receiveExistSearchKey(resume.getUuid());
+        log.info("update " + resume);
+        SK searchKey = receiveExistSearchKey(resume.getUuid());
         update(searchKey, resume);
     }
 
-    abstract void delete(Object searchKey);
+    abstract void delete(SK searchKey);
 
     public void delete(String uuid) {
-        Object searchKey = receiveExistSearchKey(uuid);
+        log.info("save " + uuid);
+        SK searchKey = receiveExistSearchKey(uuid);
         delete(searchKey);
     }
 
-    abstract boolean isExist(Object searchKey);
+    abstract boolean isExist(SK searchKey);
 
-    abstract Object getSearchKey(String uuid);
+    abstract SK getSearchKey(String uuid);
     
-    private Object receiveExistSearchKey(String uuid) {
-        Object searchKey = getSearchKey(uuid);
+    private SK receiveExistSearchKey(String uuid) {
+        SK searchKey = getSearchKey(uuid);
         if(!isExist(searchKey)) {
+            log.warning("Resume with uuid = " + uuid + " doesn't exist");
             throw new NotExistStorageException(uuid);
         }
         return searchKey;
     }
 
-    private Object receiveNotExistSearchKey(String uuid) {
-        Object searchKey = getSearchKey(uuid);
+    private SK receiveNotExistSearchKey(String uuid) {
+        SK searchKey = getSearchKey(uuid);
         if(isExist(searchKey)) {
+            log.warning("Resume with uuid = " + uuid + " already exists");
             throw new ExistStorageException(uuid);
         }
         return searchKey;

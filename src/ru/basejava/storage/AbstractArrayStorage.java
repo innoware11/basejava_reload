@@ -6,7 +6,7 @@ import ru.basejava.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     final static int CAPACITY = 10_000;
     Resume[] storage = new Resume[CAPACITY];
@@ -15,7 +15,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     abstract void insert(int index, Resume resume);
 
     @Override
-    public void save(Object index, Resume resume) {
+    public void save(Integer index, Resume resume) {
         if(size < CAPACITY) {
             insert((int)index, resume);
             size++;
@@ -25,19 +25,19 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume get(Object index) {
+    public Resume get(Integer index) {
         return storage[(int)index];
     }
 
     @Override
-    public void update(Object index, Resume resume) {
+    public void update(Integer index, Resume resume) {
         storage[(int)index] = resume;
     }
 
     abstract void remove(int index);
 
     @Override
-    public void delete(Object index) {
+    public void delete(Integer index) {
         size--;
         remove((int)index);
         storage[size] = null;
@@ -60,7 +60,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    boolean isExist(Object index) {
+    boolean isExist(Integer index) {
         return (int)index > -1;
     }
 }
