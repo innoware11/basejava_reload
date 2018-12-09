@@ -2,6 +2,7 @@ package ru.basejava.storage;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.basejava.ResumeTestData;
 import ru.basejava.exception.ExistStorageException;
 import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.model.Resume;
@@ -14,14 +15,17 @@ import static org.junit.Assert.assertSame;
 
 public abstract class AbstractStorageTest {
 
-    protected AbstractStorage storage;
-    protected int sizeBeforeTest;
+    AbstractStorage storage;
+    int sizeBeforeTest;
+
     private static final String UUID_1 = "uuid1";
-    private Resume resume1 = new Resume(UUID_1, "Ivanov Ivan Ivanovich");
+    private Resume resume1 = ResumeTestData.getInstance(UUID_1, "Ivanov Ivan Ivanovich");
+
     private static final String UUID_2 = "uuid2";
-    private Resume resume2 = new Resume(UUID_2, "Petrov Petr Sidorovich");
+    private Resume resume2 = ResumeTestData.getInstance(UUID_2, "Petrov Petr Sidorovich");
+
     private static final String UUID_3 = "uuid3";
-    private Resume resume3 = new Resume(UUID_3, "Subbotin Dmitry Serheevich");
+    private Resume resume3 = ResumeTestData.getInstance(UUID_3, "Subbotin Dmitry Serheevich");
 
     public AbstractStorageTest(AbstractStorage storage) {
         this.storage = storage;

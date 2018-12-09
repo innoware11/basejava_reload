@@ -4,18 +4,15 @@ import ru.basejava.model.*;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 import static ru.basejava.model.ContactTypes.*;
 import static ru.basejava.model.SectionTypes.*;
 
 public class ResumeTestData {
 
-    public static void main(String[] args) {
-        Resume resume = new Resume("Kislin Grigoriy");
+    public static Resume getInstance(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
 
         Map<SectionTypes, AbstractSection> sections = new EnumMap<>(SectionTypes.class);
         SimpleTextSection objective = new SimpleTextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям\n");
@@ -46,55 +43,60 @@ public class ResumeTestData {
                 "Родной русский, английский \"upper intermediate\"\n"));
 
         OrganizationSection experience = new OrganizationSection(
-                new ArrayList<>(Arrays.asList(
+                new Link("Java Online Projects", "http://javaops.ru/"),
+                new ArrayList<>(Collections.singletonList(
                         new Organization(
-                                new Link("Java Online Projects", "http://javaops.ru/"),
                                 LocalDate.of(2013, Month.OCTOBER, 1),
                                 null,
                                 "Автор проекта.\n",
                                 "Создание, организация и проведение Java онлайн проектов и стажировок.\n"
-                        ),
+                        )
+                )
+                )
+        );
+
+        OrganizationSection experience1 = new OrganizationSection(
+                new Link("Wrike", "https://www.wrike.com/"),
+                new ArrayList<>(Collections.singletonList(
                         new Organization(
-                                new Link("Wrike", "https://www.wrike.com/"),
                                 LocalDate.of(2014, Month.OCTOBER, 1),
                                 LocalDate.of(2016, Month.JANUARY, 1),
                                 "Старший разработчик (backend)\n",
                                 "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.\n"
-                        ),
-                        new Organization(
-                                new Link("RIT Center", null),
-                                LocalDate.of(2012, Month.APRIL, 1),
-                                LocalDate.of(2014, Month.OCTOBER, 1),
-                                "Java архитектор\n",
-                                "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python\n"
                         )
                 )
                 )
         );
 
         OrganizationSection education = new OrganizationSection(
-                new ArrayList<>(Arrays.asList(
+                new Link("Coursera", "https://www.coursera.org/course/progfun"),
+                new ArrayList<>(Collections.singletonList(
                         new Organization(
-                                new Link("Coursera", "https://www.coursera.org/course/progfun"),
                                 LocalDate.of(2013, Month.MARCH, 1),
                                 LocalDate.of(2013, Month.MAY, 1),
                                 "Functional Programming Principles in Scala\" by Martin Odersky\n",
                                 null
-                        ),
+                        )
+
+                )
+                )
+        );
+        // TODO
+        OrganizationSection education1 = new OrganizationSection(
+                new Link("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/"),
+                new ArrayList<>(Arrays.asList(
                         new Organization(
-                                new Link("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/"),
                                 LocalDate.of(1993, Month.SEPTEMBER, 1),
                                 LocalDate.of(1996, Month.JULY, 1),
                                 "Аспирантура (программист С, С++)\n",
                                 null
                         ),
                         new Organization(
-                                new Link("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/"),
                                 LocalDate.of(1987, Month.SEPTEMBER, 1),
                                 LocalDate.of(1993, Month.JULY, 1),
                                 "Инженер (программист Fortran, C)\n",
                                 null
-                                )
+                        )
                 )
                 )
         );
@@ -119,18 +121,8 @@ public class ResumeTestData {
 
         resume.setContacts(contacts);
 
-        for(Map.Entry<ContactTypes, String> contact : contacts.entrySet()) {
-            System.out.println(contact);
-        }
-
-        for(Map.Entry<SectionTypes, AbstractSection> section : sections.entrySet()) {
-            System.out.println(section);
-        }
-
-
-
 //        Map<ContactTypes, String> contacts = new EnumMap<>(ContactTypes.class);
 
-
+        return resume;
     }
 }
