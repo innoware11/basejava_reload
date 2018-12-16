@@ -70,4 +70,14 @@ public class Resume implements Comparable<Resume> {
     public int compareTo(Resume o) {
         return uuid.compareTo(o.getUuid());
     }
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                ", sections=" + sections +
+                '}';
+    }
 }
