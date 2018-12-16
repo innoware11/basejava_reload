@@ -43,62 +43,57 @@ public class ResumeTestData {
                 "Родной русский, английский \"upper intermediate\"\n"));
 
         OrganizationSection experience = new OrganizationSection(
-                new Link("Java Online Projects", "http://javaops.ru/"),
-                new ArrayList<>(Collections.singletonList(
                         new Organization(
-                                LocalDate.of(2013, Month.OCTOBER, 1),
-                                null,
-                                "Автор проекта.\n",
-                                "Создание, организация и проведение Java онлайн проектов и стажировок.\n"
-                        )
-                )
-                )
-        );
-
-        OrganizationSection experience1 = new OrganizationSection(
-                new Link("Wrike", "https://www.wrike.com/"),
-                new ArrayList<>(Collections.singletonList(
+                                new Link("Wrike", "https://www.wrike.com/"),
+                                new Organization.Position(
+                                        LocalDate.of(2013, Month.OCTOBER, 1),
+                                        null,
+                                        "Автор проекта.\n",
+                                        "Создание, организация и проведение Java онлайн проектов и стажировок.\n"
+                                ),
+                                new Organization.Position(
+                                        LocalDate.of(2013, Month.OCTOBER, 1),
+                                        null,
+                                        "Автор проекта.\n",
+                                        "Создание, организация и проведение Java онлайн проектов и стажировок.\n"
+                                )
+                        ),
                         new Organization(
-                                LocalDate.of(2014, Month.OCTOBER, 1),
-                                LocalDate.of(2016, Month.JANUARY, 1),
-                                "Старший разработчик (backend)\n",
-                                "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.\n"
+                                new Link("Google", "https://www.google.com/"),
+                                new Organization.Position(
+                                        LocalDate.of(2014, Month.OCTOBER, 1),
+                                        LocalDate.of(2016, Month.JANUARY, 1),
+                                        "Старший разработчик (backend)\n",
+                                        "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO.\n"
                         )
-                )
                 )
         );
 
         OrganizationSection education = new OrganizationSection(
-                new Link("Coursera", "https://www.coursera.org/course/progfun"),
-                new ArrayList<>(Collections.singletonList(
                         new Organization(
-                                LocalDate.of(2013, Month.MARCH, 1),
-                                LocalDate.of(2013, Month.MAY, 1),
-                                "Functional Programming Principles in Scala\" by Martin Odersky\n",
-                                null
-                        )
-
-                )
-                )
-        );
-        // TODO
-        OrganizationSection education1 = new OrganizationSection(
-                new Link("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/"),
-                new ArrayList<>(Arrays.asList(
-                        new Organization(
-                                LocalDate.of(1993, Month.SEPTEMBER, 1),
-                                LocalDate.of(1996, Month.JULY, 1),
-                                "Аспирантура (программист С, С++)\n",
-                                null
+                                new Link("Coursera", "https://www.coursera.org/course/progfun"),
+                                new Organization.Position(
+                                        LocalDate.of(2013, Month.MARCH, 1),
+                                        LocalDate.of(2013, Month.MAY, 1),
+                                        "Functional Programming Principles in Scala\" by Martin Odersky\n",
+                                        null
+                                )
                         ),
                         new Organization(
-                                LocalDate.of(1987, Month.SEPTEMBER, 1),
-                                LocalDate.of(1993, Month.JULY, 1),
-                                "Инженер (программист Fortran, C)\n",
-                                null
+                                new Link("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://www.ifmo.ru/"),
+                                new Organization.Position(
+                                        LocalDate.of(1993, Month.SEPTEMBER, 1),
+                                        LocalDate.of(1996, Month.JULY, 1),
+                                        "Аспирантура (программист С, С++)\n",
+                                        null
+                                ),
+                                new Organization.Position(
+                                        LocalDate.of(1987, Month.SEPTEMBER, 1),
+                                        LocalDate.of(1993, Month.JULY, 1),
+                                        "Инженер (программист Fortran, C)\n",
+                                        null
+                                )
                         )
-                )
-                )
         );
 
         sections.put(OBJECTIVE, objective);
@@ -120,8 +115,6 @@ public class ResumeTestData {
         contacts.put(HOMEPAGE, HOMEPAGE.getContact());
 
         resume.setContacts(contacts);
-
-//        Map<ContactTypes, String> contacts = new EnumMap<>(ContactTypes.class);
 
         return resume;
     }

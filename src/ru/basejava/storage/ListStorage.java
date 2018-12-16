@@ -10,22 +10,22 @@ public class ListStorage extends AbstractStorage<Integer> {
     private List<Resume> storage = new ArrayList<>();
 
     @Override
-    public void save(Integer index, Resume resume) {
+    public void doSave(Integer index, Resume resume) {
         storage.add(resume);
     }
 
     @Override
-    public Resume get(Integer index) {
+    public Resume doGet(Integer index) {
         return storage.get((int)index);
     }
 
     @Override
-    public void update(Integer index, Resume resume) {
+    public void doUpdate(Integer index, Resume resume) {
         storage.set((int)index, resume);
     }
 
     @Override
-    public void delete(Integer index) {
+    public void doDelete(Integer index) {
         storage.remove((int)index);
     }
 

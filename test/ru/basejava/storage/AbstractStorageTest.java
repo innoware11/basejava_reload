@@ -77,7 +77,7 @@ public abstract class AbstractStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void delete() {
         storage.delete(UUID_1);
-        assertEquals(resume1, storage.get(UUID_1));
+        storage.get(UUID_1);
     }
 
     @Test(expected = NotExistStorageException.class)

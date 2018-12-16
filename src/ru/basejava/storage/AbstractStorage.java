@@ -16,7 +16,7 @@ public abstract class AbstractStorage<SK> {
 
     abstract List<Resume> getAll();
 
-    abstract void save(SK searchKey, Resume resume);
+    abstract void doSave(SK searchKey, Resume resume);
 
     private static final Comparator<Resume> COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
@@ -25,31 +25,31 @@ public abstract class AbstractStorage<SK> {
     public void save(Resume resume) {
         log.info("save " + resume);
         SK searchKey = receiveNotExistSearchKey(resume.getUuid());
-        save(searchKey, resume);
+        doSave(searchKey, resume);
     }
 
-    abstract Resume get(SK searchKey);
+    abstract Resume doGet(SK searchKey);
 
     public Resume get(String uuid) {
-        log.info("save " + uuid);
+        log.info("get " + uuid);
         SK searchKey = receiveExistSearchKey(uuid);
-        return get(searchKey);
+        return doGet(searchKey);
     }
 
-    abstract void update(SK searchKey, Resume resume);
+    abstract void doUpdate(SK searchKey, Resume resume);
 
     public void update(Resume resume) {
         log.info("update " + resume);
         SK searchKey = receiveExistSearchKey(resume.getUuid());
-        update(searchKey, resume);
+        doUpdate(searchKey, resume);
     }
 
-    abstract void delete(SK searchKey);
+    abstract void doDelete(SK searchKey);
 
     public void delete(String uuid) {
-        log.info("save " + uuid);
+        log.info("delete " + uuid);
         SK searchKey = receiveExistSearchKey(uuid);
-        delete(searchKey);
+        doDelete(searchKey);
     }
 
     abstract boolean isExist(SK searchKey);

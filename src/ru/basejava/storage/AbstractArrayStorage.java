@@ -15,7 +15,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     abstract void insert(int index, Resume resume);
 
     @Override
-    public void save(Integer index, Resume resume) {
+    public void doSave(Integer index, Resume resume) {
         if(size < CAPACITY) {
             insert((int)index, resume);
             size++;
@@ -25,19 +25,19 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    public Resume get(Integer index) {
+    public Resume doGet(Integer index) {
         return storage[(int)index];
     }
 
     @Override
-    public void update(Integer index, Resume resume) {
+    public void doUpdate(Integer index, Resume resume) {
         storage[(int)index] = resume;
     }
 
     abstract void remove(int index);
 
     @Override
-    public void delete(Integer index) {
+    public void doDelete(Integer index) {
         size--;
         remove((int)index);
         storage[size] = null;
