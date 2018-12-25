@@ -1,4 +1,8 @@
 package ru.basejava.model;
 
-public class AbstractSection {
+import java.io.Serializable;
+
+public class AbstractSection implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 }

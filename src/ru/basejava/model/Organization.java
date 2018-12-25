@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class Organization extends AbstractSection {
 
+    private static final long serialVersionUID = 1L;
+
     private Link homepage;
     private List<Position> organizations;
 
@@ -56,6 +58,8 @@ public class Organization extends AbstractSection {
     }
 
     public static class Position extends AbstractSection {
+
+        private static final long serialVersionUID = 1L;
 
         private LocalDate startDate;
         private LocalDate endDate;

@@ -15,6 +15,8 @@ import static org.junit.Assert.assertSame;
 
 public abstract class AbstractStorageTest {
 
+    final static String DIR = ".\\storage";
+
     AbstractStorage storage;
     int sizeBeforeTest;
 
@@ -43,7 +45,8 @@ public abstract class AbstractStorageTest {
     public void save() {
         storage.save(resume3);
         assertEquals(sizeBeforeTest + 1, storage.size());
-        assertEquals(resume3, storage.get(UUID_3));
+        Resume tmp = storage.get(UUID_3);
+        assertEquals(resume3, tmp);
     }
 
     @Test(expected = ExistStorageException.class)
@@ -94,6 +97,6 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAllResume() {
         List<Resume> actualResumes = Arrays.asList(resume1, resume2);
-        assertEquals(storage.getAllSorted(), actualResumes);
+        assertEquals(actualResumes, storage.getAllSorted());
     }
 }
