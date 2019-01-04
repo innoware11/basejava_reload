@@ -7,6 +7,7 @@ import ru.basejava.exception.ExistStorageException;
 import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.model.Resume;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertSame;
 
 public abstract class AbstractStorageTest {
 
-    final static String DIR = ".\\storage";
+    final static File DIR = new File(".\\storage");
 
     AbstractStorage storage;
     int sizeBeforeTest;
@@ -66,7 +67,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume resume = new Resume(UUID_1, "newName");
+        Resume resume = ResumeTestData.getInstance(UUID_1, "newName");
         storage.update(resume);
         assertSame(resume, storage.get(UUID_1));
     }
