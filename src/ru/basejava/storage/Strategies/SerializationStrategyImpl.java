@@ -1,25 +1,21 @@
-package ru.basejava.storage;
+package ru.basejava.storage.Strategies;
 
 import ru.basejava.exception.StorageException;
 import ru.basejava.model.Resume;
 
 import java.io.*;
 
-public class SerializationStorage extends AbstractFileStorage {
-
-    public SerializationStorage(File dir) {
-        super(dir);
-    }
+public class SerializationStrategyImpl implements StorageStrategy {
 
     @Override
-    void writeStream(Resume resume, OutputStream os) throws IOException {
+    public void writeStream(Resume resume, OutputStream os) throws IOException {
         try(ObjectOutputStream oos = new ObjectOutputStream(os)) {
             oos.writeObject(resume);
         }
     }
 
     @Override
-    Resume readStream(InputStream is) throws IOException {
+    public Resume readStream(InputStream is) throws IOException {
         try(ObjectInputStream ois = new ObjectInputStream(is)) {
             return (Resume)ois.readObject();
         } catch(ClassNotFoundException e) {

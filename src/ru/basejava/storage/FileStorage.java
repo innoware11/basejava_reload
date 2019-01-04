@@ -2,40 +2,68 @@ package ru.basejava.storage;
 
 import ru.basejava.exception.StorageException;
 import ru.basejava.model.Resume;
+import ru.basejava.storage.Strategies.StorageStrategy;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FileStorage extends AbstractStorage {
+public class FileStorage extends AbstractStorage<File> {
 
     private File dir;
+    private StorageStrategy strategy;
 
-    public FileStorage(File dir) {
-        if(!dir.exists()) {
-            throw new StorageException(dir.getAbsolutePath() + " doesn't exist");
-        } else if(!dir.isDirectory()) {
+    public FileStorage(File dir, StorageStrategy strategy) {
+        if(!dir.isDirectory()) {
             throw new StorageException(dir.getAbsolutePath() + " is not a folder");
+        } else if(!dir.canRead() || !dir.canWrite()) {
+            throw new StorageException(dir.getAbsolutePath() + " can't be read or write");
         }
         this.dir = dir;
+        this.strategy = strategy;
     }
 
     @Override
-    void doSave(Object uuid, Resume resume) {
-        File newFile = new File(dir, resume.getUuid());
+    void doSave(File file, Resume resume) {
         try {
-            newFile.createNewFile();
+            file.createNewFile();
+            strategy.writeStream(resume, new BufferedOutputStream(new FileOutputStream((file))));
         } catch (IOException e) {
-            throw new StorageException("", e);
+            throw new StorageException("resume can't be save", e);
+        }
+    }
+
+    @Override
+    Resume doGet(File file) {
+        try {
+            return strategy.readStream(new BufferedInputStream(new FileInputStream(file)));
+        } catch (IOException e) {
+            throw new StorageException("File read error", file.getName(), e);
+        }
+    }
+
+    @Override
+    void doUpdate(File file, Resume resume) {
+        doSave(file, resume);
+    }
+
+    @Override
+    void doDelete(File file) {
+        File[] files = dir.listFiles();
+        Objects.requireNonNull(files);
+        for(File currentFile : files) {
+            if(currentFile.getName().equals(currentFile.getName())) {
+                currentFile.delete();
+            }
         }
     }
 
     @Override
     void clear() {
         File[] files = dir.listFiles();
-        for(File file : Objects.requireNonNull(files)) {
+        Objects.requireNonNull(files);
+        for(File file : files) {
             file.delete();
         }
     }
@@ -48,48 +76,23 @@ public class FileStorage extends AbstractStorage {
     @Override
     List<Resume> getAll() {
         File[] files = dir.listFiles();
+        Objects.requireNonNull(files);
         List<Resume> resumes = new ArrayList<>();
-        for(File file : Objects.requireNonNull(files)) {
+        for(File file : files) {
             if(file.isFile()) {
-                resumes.add(doGet(file.getName()));
+                resumes.add(doGet(file));
             }
         }
         return resumes;
     }
 
     @Override
-    void doUpdate(Object name, Resume resume) {
-        doSave(name, resume);
+    boolean isExist(File file) {
+        return file.exists();
     }
 
     @Override
-    void doDelete(Object name) {
-        File[] files = dir.listFiles();
-        for(File file : Objects.requireNonNull(files)) {
-            if(file.getName().equals(name)) {
-                file.delete();
-            }
-        }
-    }
-
-    @Override
-    boolean isExist(Object name) {
-        return name != null;
-    }
-
-    @Override
-    String getSearchKey(String uuid) {
-        String[] listFiles = dir.list();
-        for(String name : Objects.requireNonNull(listFiles)) {
-            if(name.equals(uuid)) {
-                return uuid;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    Resume doGet(Object uuid) {
-        return new Resume((String)uuid, "");
+    File getSearchKey(String uuid) {
+        return new File(dir, uuid);
     }
 }
