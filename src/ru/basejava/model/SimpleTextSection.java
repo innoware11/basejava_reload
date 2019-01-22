@@ -1,12 +1,17 @@
 package ru.basejava.model;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.util.Objects;
 
 public class SimpleTextSection extends AbstractSection {
 
     private static final long serialVersionUID = 1L;
 
+    @XmlElement(name = "content", type = String.class)
     private String simpleText;
+
+    public SimpleTextSection() {
+    }
 
     public SimpleTextSection(String simpleText) {
         Objects.requireNonNull(simpleText, "simpleText can't be null");

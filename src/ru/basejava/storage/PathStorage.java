@@ -63,7 +63,7 @@ public class PathStorage extends AbstractStorage<Path> {
         try {
             Files.delete(path);
         } catch (IOException e) {
-            throw new StorageException("resume with uuid = " + path.getFileName() + " can't be update", e);
+            throw new StorageException("resume with uuid = " + path.getFileName() + " can't be delete", e);
         }
     }
 

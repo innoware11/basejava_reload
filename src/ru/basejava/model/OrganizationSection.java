@@ -8,6 +8,9 @@ public class OrganizationSection extends AbstractSection {
 
     private static final long serialVersionUID = 1L;
 
+    public OrganizationSection() {
+    }
+
     private List<Organization> organizations;
 
     public OrganizationSection(Organization... organizations) {

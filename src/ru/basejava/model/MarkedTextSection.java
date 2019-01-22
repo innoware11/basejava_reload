@@ -9,6 +9,9 @@ public class MarkedTextSection extends AbstractSection {
 
     private List<String> list;
 
+    public MarkedTextSection() {
+    }
+
     public MarkedTextSection(List<String> list) {
         Objects.requireNonNull(list, "list can't be null");
         this.list = list;

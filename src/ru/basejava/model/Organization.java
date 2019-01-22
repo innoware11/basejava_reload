@@ -1,5 +1,8 @@
 package ru.basejava.model;
 
+import ru.basejava.util.LocalDateAdapterForXML;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +14,9 @@ public class Organization extends AbstractSection {
 
     private Link homepage;
     private List<Position> organizations;
+
+    public Organization() {
+    }
 
     public Organization(Link homepage, Position... organizations) {
         Objects.requireNonNull(homepage, "homepage can't be null");
@@ -61,10 +67,15 @@ public class Organization extends AbstractSection {
 
         private static final long serialVersionUID = 1L;
 
+        @XmlJavaTypeAdapter(LocalDateAdapterForXML.class)
         private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapterForXML.class)
         private LocalDate endDate;
         private String title;
         private String description;
+
+        public Position() {
+        }
 
         public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
             Objects.requireNonNull(startDate, "startDate can't be null");
