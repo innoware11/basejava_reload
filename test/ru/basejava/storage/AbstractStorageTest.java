@@ -45,8 +45,7 @@ public abstract class AbstractStorageTest {
     public void save() {
         storage.save(resume3);
         assertEquals(sizeBeforeTest + 1, storage.size());
-        Resume tmp = storage.get(UUID_3);
-        assertEquals(resume3, tmp);
+        assertEquals(resume3, storage.get(UUID_3));
     }
 
     @Test(expected = ExistStorageException.class)

@@ -16,13 +16,15 @@ public class XmlStrategyImpl implements StorageStrategy {
 
     @Override
     public void writeStream(Resume resume, OutputStream os) throws IOException {
-        Writer writer = new OutputStreamWriter(os);
-        xmlBinder.marshal(resume, writer);
+        try(Writer writer = new OutputStreamWriter(os)) {
+            xmlBinder.marshal(resume, writer);
+        }
     }
 
     @Override
     public Resume readStream(InputStream is) throws IOException {
-        Reader reader = new InputStreamReader(is);
-        return xmlBinder.unmarshal(reader);
+        try(Reader reader = new InputStreamReader(is)) {
+            return xmlBinder.unmarshal(reader);
+        }
     }
 }
