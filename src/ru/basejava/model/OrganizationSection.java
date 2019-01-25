@@ -8,10 +8,10 @@ public class OrganizationSection extends AbstractSection {
 
     private static final long serialVersionUID = 1L;
 
+    private List<Organization> organizations;
+
     public OrganizationSection() {
     }
-
-    private List<Organization> organizations;
 
     public OrganizationSection(Organization... organizations) {
         Objects.requireNonNull(organizations, "organizations cant't be null");
